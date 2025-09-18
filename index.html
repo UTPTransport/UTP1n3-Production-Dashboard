@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Factory Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+html, body { margin:0; padding:0; width:100%; height:100%; overflow:hidden; background:#000; color:#0f0; font-family:Arial,sans-serif; }
+iframe { width:100%; height:100%; border:none; }
+#siteSelect {
+    position:absolute;
+    top:10px; right:10px;
+    z-index:1000;
+    font-size:18px;
+    padding:5px;
+    background:#000;
+    color:#0f0;
+    border:1px solid #0f0;
+}
+</style>
+</head>
+<body>
+
+<!-- Dropdown for selecting site -->
+<select id="siteSelect">
+    <option value="UTP1">UTP 1</option>
+    <option value="UTP3">UTP 3</option>
+</select>
+
+<!-- Iframe to load hosted GitHub Pages dashboard -->
+<iframe id="dashboardFrame" src=""></iframe>
+
+<script>
+// ------------------ Elements ------------------
+const frame = document.getElementById('dashboardFrame');
+const select = document.getElementById('siteSelect');
+
+// ------------------ Load dashboard based on selected site ------------------
+function loadDashboard(site){
+    frame.src = `https://UTPTransport.github.io/factory-dashboard/?site=${site}`;
+}
+
+// Load initial site
+loadDashboard(select.value);
+
+// Change dashboard when user selects different site
+select.addEventListener('change', e => loadDashboard(e.target.value));
+
+// ------------------ Optional: Wake Lock ------------------
+let wakeLock = null;
+async function requestWakeLock() {
+    try {
+        wakeLock = await navigator.wakeLock.request("screen");
+        wakeLock.addEventListener("release", ()=>console.log("Wake Lock released"));
+    } catch(err){ console.error(err); }
+}
+if('wakeLock' in navigator){
+    requestWakeLock();
+    document.addEventListener("visibilitychange", ()=>{
+        if(wakeLock!==null && document.visibilityState==='visible') requestWakeLock();
+    });
+}
+</script>
+
+</body>
+</html>
