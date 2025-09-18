@@ -28,7 +28,6 @@ html, body {
   z-index: 10;
 }
 #appTitle { font-size: 18px; font-weight: bold; }
-#siteSelect { font-size: 16px; padding: 4px; }
 #dashboardFrame {
   position: absolute;
   top: 40px;
@@ -60,10 +59,6 @@ html, body {
 
 <div id="header">
   <div id="appTitle">Production Dashboard</div>
-  <select id="siteSelect">
-    <option value="UTP1">UTP 1</option>
-    <option value="UTP3">UTP 3</option>
-  </select>
 </div>
 
 <iframe id="dashboardFrame"></iframe>
@@ -104,7 +99,6 @@ let currentIndex = 0;
 let timer;
 const frame = document.getElementById("dashboardFrame");
 const clockPage = document.getElementById("clockPage");
-const siteSelect = document.getElementById("siteSelect");
 
 function buildSlides(site) {
   pages = [
@@ -124,7 +118,7 @@ function updateClock() {
 }
 
 async function updateWeather() {
-  const apiKey = "85158e35e52890edf18936f969fded80"; // replace with your API key
+  const apiKey = "85158e35e52890edf18936f969fded80";
   const city = "Katunayaka";
   try {
     const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`);
@@ -164,24 +158,15 @@ function startSlideshow() {
 // ------------------ Initialization ------------------
 const urlParams = new URLSearchParams(window.location.search);
 const initialSite = urlParams.get('site') || 'UTP1';
-siteSelect.value = initialSite;
+document.getElementById("appTitle").innerText = `Production Dashboard - ${initialSite}`;
 buildSlides(initialSite);
 startSlideshow();
 
-siteSelect.addEventListener("change", () => {
-  const selectedSite = siteSelect.value;
-  buildSlides(selectedSite);
-  startSlideshow();
-});
-
-// Refresh clock/weather every second
-setInterval(() => {
-  if(clockPage.style.display === "flex") updateClock();
-}, 1000);
-
-// Refresh weather every 10 minutes
+// Refresh clock/weather
+setInterval(() => { if(clockPage.style.display==="flex") updateClock(); }, 1000);
 setInterval(updateWeather, 600000);
 updateWeather();
 </script>
+
 </body>
 </html>
