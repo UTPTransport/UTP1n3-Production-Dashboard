@@ -3,127 +3,156 @@
 <head>
   <meta charset="UTF-8">
   <title>Production Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    html, body {
+    body, html {
       margin: 0;
       padding: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background: black;
-      color: white;
+      background: #000;
+      color: #0f0;
       font-family: Arial, sans-serif;
+      overflow: hidden;
+      height: 100%;
+      width: 100%;
     }
     #header {
-      position: absolute;
-      top: 0;
-      left: 0;
+      position: fixed;
+      top: 0; left: 0;
       width: 100%;
-      background: #111;
-      padding: 8px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      z-index: 10;
+      background: #111;
+      padding: 10px;
+      z-index: 1000;
     }
     #appTitle {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: bold;
+      margin-right: 20px;
     }
     #siteSelect {
+      padding: 5px;
       font-size: 16px;
-      padding: 4px;
     }
-    #dashboardFrame {
+    .page {
       position: absolute;
-      top: 40px;
+      top: 50px; /* account for header */
       left: 0;
       width: 100%;
-      height: calc(100% - 40px);
+      height: calc(100% - 50px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+    .page.active { display: flex; }
+    #slidesPage iframe {
+      width: 100%;
+      height: 100%;
       border: none;
     }
+    #clockPage {
+      flex-direction: column;
+      text-align: center;
+    }
+    #bigTime { font-size: 8rem; text-shadow: 0 0 50px #0f0; }
+    #bigDate { font-size: 3rem; margin-top: 20px; text-shadow: 0 0 30px #0f0; }
+    #weatherInfo { font-size: 2.5rem; margin-top: 25px; text-shadow: 0 0 20px #0f0, 0 0 40px #0f0; }
   </style>
 </head>
 <body>
-  <div id="header">
-    <div id="appTitle">Production Dashboard</div>
-    <select id="siteSelect">
-      <option value="UTP1">UTP 1</option>
-      <option value="UTP3">UTP 3</option>
-    </select>
-  </div>
-  <iframe id="dashboardFrame"></iframe>
 
-  <script>
-    // ------------------ Common Slides ------------------
-    const commonSlidesSet1 = [
-      "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.p",
-      "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g3473e6c60b9_0_1",
-      "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g33e220b68ce_0_14"
-    ];
+<div id="header">
+  <div id="appTitle">Production Dashboard</div>
+  <select id="siteSelect">
+    <option value="UTP1">UTP 1</option>
+    <option value="UTP3">UTP 3</option>
+  </select>
+</div>
 
-    const commonSlidesSet2 = [
-      "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g37b0bfcc0d1_0_2",
-      "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g37f10e0f009_1_13",
-      "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g37f10e0f009_1_17",
-      "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g37f10e0f009_1_21",
-      "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g347e42ef442_0_0",
-      "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g36e72d387a5_0_10",
-      "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g37b74c5db84_0_10",
-      "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g3772e3b3f81_0_11"
-    ];
+<div id="slidesPage" class="page active">
+  <iframe id="slideFrame"></iframe>
+</div>
 
-    // ------------------ Site-Specific Slides ------------------
-    const siteSlides = {
-      "UTP1": [
-        "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g3800dd7da6a_5_8"
-      ],
-      "UTP3": [
-        "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g3800dd7da6a_5_18"
-      ]
-    };
+<div id="clockPage" class="page">
+  <div id="bigTime"></div>
+  <div id="bigDate"></div>
+  <div id="weatherInfo">Loading weather...</div>
+</div>
 
-    // ------------------ Slideshow Logic ------------------
-    let pages = [];
-    let currentIndex = 0;
-    let timer;
-    const frame = document.getElementById("dashboardFrame");
-    const siteSelect = document.getElementById("siteSelect");
+<script>
+  // ------------------ Common & Site-Specific Slides ------------------
+  const commonSlides = [
+    "https://docs.google.com/presentation/d/SLIDE_ID_1/embed?start=true&loop=true&delayms=15000",
+    "https://docs.google.com/presentation/d/SLIDE_ID_2/embed?start=true&loop=true&delayms=15000",
+    "https://docs.google.com/presentation/d/SLIDE_ID_3/embed?start=true&loop=true&delayms=15000"
+  ];
+  const siteSlides = {
+    "UTP1": [
+      "https://docs.google.com/presentation/d/SLIDE_ID_4/embed?start=true&loop=true&delayms=15000"
+    ],
+    "UTP3": [
+      "https://docs.google.com/presentation/d/SLIDE_ID_5/embed?start=true&loop=true&delayms=15000"
+    ]
+  };
 
-    function buildSlides(site) {
-      pages = [
-        ...commonSlidesSet1,
-        ...(siteSlides[site] || []),
-        ...commonSlidesSet2
-      ];
+  // ------------------ Elements ------------------
+  const siteSelect = document.getElementById("siteSelect");
+  const slideFrame = document.getElementById("slideFrame");
+  const slidesPage = document.getElementById("slidesPage");
+  const clockPage = document.getElementById("clockPage");
+  let pages = [...commonSlides, ...(siteSlides[siteSelect.value] || [])];
+
+  // ------------------ Clock ------------------
+  function updateClockPage(){
+    const now = new Date();
+    document.getElementById("bigTime").innerText = now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'});
+    document.getElementById("bigDate").innerText = now.toLocaleDateString([], {weekday:'long', year:'numeric', month:'long', day:'numeric'});
+  }
+
+  // ------------------ Rotation ------------------
+  let pageIndex = 0;
+  function showNextPage(){
+    const showClock = (pageIndex > 0 && pageIndex % 3 === 0);
+    if(showClock){
+      slidesPage.classList.remove("active");
+      clockPage.classList.add("active");
+      updateClockPage();
+    } else {
+      clockPage.classList.remove("active");
+      slidesPage.classList.add("active");
+      slideFrame.src = pages[pageIndex % pages.length];
     }
+    pageIndex++;
+  }
 
-    function showNextPage() {
-      if (pages.length === 0) return;
-      frame.src = pages[currentIndex];
-      currentIndex = (currentIndex + 1) % pages.length;
+  siteSelect.addEventListener("change", () => {
+    pages = [...commonSlides, ...(siteSlides[siteSelect.value] || [])];
+    pageIndex = 0;
+    showNextPage();
+  });
+
+  showNextPage();
+  setInterval(showNextPage, 15000);
+
+  // ------------------ Weather ------------------
+  async function fetchWeather() {
+    const apiKey = "85158e35e52890edf18936f969fded80"; // your API key
+    const city = "Katunayaka";
+    try {
+      const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`);
+      const data = await res.json();
+      if(data.cod===200){
+        document.getElementById("weatherInfo").innerText =
+          `${data.name}, ${data.sys.country} • ${Math.round(data.main.temp)}°C • ${data.weather[0].description}`;
+      } else {
+        document.getElementById("weatherInfo").innerText = "Weather unavailable";
+      }
+    } catch(err){
+      document.getElementById("weatherInfo").innerText = "Weather unavailable";
     }
-
-    function startSlideshow() {
-      clearInterval(timer);
-      currentIndex = 0;
-      showNextPage();
-      timer = setInterval(showNextPage, 15000);
-    }
-
-    // ------------------ Initialization ------------------
-    const urlParams = new URLSearchParams(window.location.search);
-    const initialSite = urlParams.get('site') || 'UTP1';
-    siteSelect.value = initialSite;
-
-    buildSlides(initialSite);
-    startSlideshow();
-
-    siteSelect.addEventListener("change", () => {
-      const selectedSite = siteSelect.value;
-      buildSlides(selectedSite);
-      startSlideshow();
-    });
-  </script>
+  }
+  fetchWeather();
+  setInterval(fetchWeather, 600000); // refresh every 10 mins
+</script>
 </body>
 </html>
