@@ -72,20 +72,43 @@ html, body {
 <script>
 // ------------------ Slides ------------------
 const commonSlidesSet1 = [
-  "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.p",
-  "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g3473e6c60b9_0_1",
-  "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g33e220b68ce_0_14"
-];
-
+// MAIN PAGE
+  "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.p"
+]
 const commonSlidesSet2 = [
-  "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g37b0bfcc0d1_0_2",
-  "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g37f10e0f009_1_13",
-  "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g37f10e0f009_1_17",
-  "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g37f10e0f009_1_21",
+// UTP 1 & 3
+  "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g3473e6c60b9_0_1",
+  "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g33e220b68ce_0_14",
+  "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g3473e6c60b9_0_32",
+  "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g3800dd7da6a_0_8"
+];
+const commonSlidesSet3 = [
+// DAILY SITUATION
+  "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g3473e6c60b9_0_1",
+  "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g33e220b68ce_0_14",
+  "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g3473e6c60b9_0_32",
+  "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g3800dd7da6a_0_8"
+];
+const commonSlidesSet4 = [
+// BEST PERFORMERS
   "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g347e42ef442_0_0",
-  "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g36e72d387a5_0_10",
+  "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g36e72d387a5_0_10"
+];
+const commonSlidesSet5 = [
+// SPEED ABOVE 1,000
   "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g37b74c5db84_0_10",
   "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g3772e3b3f81_0_11"
+];
+const commonSlidesSet6 = [
+  // WINNERS PREVIOUS MONTH
+  "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g3735bd4987b_0_10",
+  "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g353e2015f6c_0_14",
+  "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g353e2015f6c_0_0",
+  "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g3735bd4987b_0_25",
+  "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g3530cd56818_0_9",
+  "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g3735bd4987b_0_41",
+  "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g3530cd56818_0_19",
+  "https://docs.google.com/presentation/d/1pXeDdRBYbl4Spc7wYd6MY91ftwP9-yk7eu6nxim2q_o/embed?start=true&loop=true&delayms=15000#slide=id.g38a43214bdf_1_14"
 ];
 
 const siteSlides = {
@@ -107,6 +130,14 @@ function buildSlides(site) {
     ...(siteSlides[site] || []),
     "CLOCK",
     ...commonSlidesSet2,
+    "CLOCK",
+    ...commonSlidesSet3,
+    "CLOCK",
+    ...commonSlidesSet4,
+    "CLOCK",
+    ...commonSlidesSet5,
+    "CLOCK",
+    ...commonSlidesSet6,
     "CLOCK"
   ];
 }
@@ -170,3 +201,4 @@ updateWeather();
 
 </body>
 </html>
+
